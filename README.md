@@ -1,18 +1,19 @@
 # 基于U-Net的语义分割
 # Semantic segmentation based on U-Net
-基于[Pytorch-UNet](https://github.com/milesial/Pytorch-UNet)修改
+基于[Pytorch-UNet](https://github.com/milesial/Pytorch-UNet)修改。
 
 > * - [x] Single class
 > * - [x] Multi-class
 
 
-### Dependency
-- Pytorch=1.5.1
-- Pillow=5.3.0
-- Numpy=1.19.1
-- Matplotlib=3.2.2
-- imgviz=1.2.3
+## Dependency
+- pytorch==1.5.1
+- pillow==5.3.0
+- numpy==1.19.1
+- matplotlib==3.2.2
+- imgviz==1.2.3
 
+## Train
 ### 1. Train with single class and background
 ```
 python train.py \ 
@@ -26,11 +27,11 @@ python train.py \
     ......
 ```
 
-### 2. Train with multi-class and background
+### 2. Train with N classes and background
 ```
 python train.py \ 
     ......
-    --classes=N \ 
+    --classes=N+1 \ 
     ......
 ```
 
@@ -42,7 +43,7 @@ python train.py \
     ......
 ```
 
-### 4. predict stage or inference
+## Inference
 ```
 python predict.py \ 
     --model=./checkpoints/49.pth \ 
@@ -55,8 +56,22 @@ python predict.py \
 * `--viz`: visualize the predict result.
 * `--no-save`: Dont not save the predict result.
 
-## Visualization
-![Image text](/demo/1.png)
-![Image text](/demo/2.png)
+## Some Visualization Result
+![Image text](./demo/1.png)
 
+![Image text](./demo/2.png)
 
+## Label generate
+Use [labelme](https://github.com/wkentaro/labelme) to label your image.
+
+Install labelme: ```pip install labelme``` or install it from source.
+
+Then run json_to_dataset.py to convert json file to png mask:
+```
+python json_to_dataset.py \
+    --json_file=xxx.json
+    --out=output_dir
+```
+If you want to batch convert json file or to generate xxx.yaml file, 
+please refer: 
+[labeme批量转化json 未生成info.yaml解决办法](https://blog.csdn.net/weixin_43410539/article/details/104372086).
